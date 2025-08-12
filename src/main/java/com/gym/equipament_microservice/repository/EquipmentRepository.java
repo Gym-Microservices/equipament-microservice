@@ -10,13 +10,7 @@ import java.util.List;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
     
-    List<Equipment> findByIsActiveTrue();
-    
-    List<Equipment> findByCategory(String category);
-    
     List<Equipment> findByAvailableQuantityGreaterThan(int minQuantity);
-    
-    List<Equipment> findByLastMaintenanceBefore(LocalDate date);
     
     List<Equipment> findByQuantityGreaterThan(int minQuantity);
 }

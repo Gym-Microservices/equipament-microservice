@@ -33,12 +33,6 @@ public class EquipmentController {
         return ResponseEntity.ok(equipment);
     }
     
-    @GetMapping("/active")
-    public ResponseEntity<List<Equipment>> getActiveEquipment() {
-        List<Equipment> activeEquipment = equipmentService.getActiveEquipment();
-        return ResponseEntity.ok(activeEquipment);
-    }
-    
     @GetMapping("/{id}")
     public ResponseEntity<Equipment> getEquipmentById(@PathVariable Long id) {
         Optional<Equipment> equipment = equipmentService.getEquipmentById(id);
@@ -46,21 +40,9 @@ public class EquipmentController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-    @GetMapping("/category/{category}")
-    public ResponseEntity<List<Equipment>> getEquipmentByCategory(@PathVariable String category) {
-        List<Equipment> equipment = equipmentService.getEquipmentByCategory(category);
-        return ResponseEntity.ok(equipment);
-    }
-    
     @GetMapping("/available/{minQuantity}")
     public ResponseEntity<List<Equipment>> getAvailableEquipment(@PathVariable int minQuantity) {
         List<Equipment> equipment = equipmentService.getAvailableEquipment(minQuantity);
-        return ResponseEntity.ok(equipment);
-    }
-    
-    @GetMapping("/maintenance/needed")
-    public ResponseEntity<List<Equipment>> getEquipmentNeedingMaintenance() {
-        List<Equipment> equipment = equipmentService.getEquipmentNeedingMaintenance();
         return ResponseEntity.ok(equipment);
     }
     

@@ -27,25 +27,12 @@ public class EquipmentService {
         return equipmentRepository.findAll();
     }
     
-    public List<Equipment> getActiveEquipment() {
-        return equipmentRepository.findByIsActiveTrue();
-    }
-    
     public Optional<Equipment> getEquipmentById(Long id) {
         return equipmentRepository.findById(id);
     }
     
-    public List<Equipment> getEquipmentByCategory(String category) {
-        return equipmentRepository.findByCategory(category);
-    }
-    
     public List<Equipment> getAvailableEquipment(int minQuantity) {
         return equipmentRepository.findByAvailableQuantityGreaterThan(minQuantity);
-    }
-    
-    public List<Equipment> getEquipmentNeedingMaintenance() {
-        LocalDate thirtyDaysAgo = LocalDate.now().minusDays(30);
-        return equipmentRepository.findByLastMaintenanceBefore(thirtyDaysAgo);
     }
     
     public Equipment updateEquipment(Long id, Equipment equipmentDetails) {
