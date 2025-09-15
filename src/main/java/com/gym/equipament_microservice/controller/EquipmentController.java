@@ -32,7 +32,7 @@ public class EquipmentController {
             @ApiResponse(responseCode = "200", description = "Equipment added successfully"),
             @ApiResponse(responseCode = "400", description = "Error in input data")
     })
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Equipment> addEquipment(@RequestBody Equipment equipment) {
         try {
             Equipment addedEquipment = equipmentService.addEquipment(equipment);
@@ -45,7 +45,7 @@ public class EquipmentController {
     @GetMapping
     @Operation(summary = "Get all equipment", description = "Returns a list of all available equipment")
     @ApiResponse(responseCode = "200", description = "Equipment list retrieved successfully")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER') or hasRole('MEMBER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_COACH') or hasRole('ROLE_MEMBER')")
     public ResponseEntity<List<Equipment>> getAllEquipment() {
         List<Equipment> equipment = equipmentService.getAllEquipment();
         return ResponseEntity.ok(equipment);
@@ -57,7 +57,7 @@ public class EquipmentController {
             @ApiResponse(responseCode = "200", description = "Equipment found"),
             @ApiResponse(responseCode = "404", description = "Equipment not found")
     })
-    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER') or hasRole('MEMBER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_COACH') or hasRole('ROLE_MEMBER')")
     public ResponseEntity<Equipment> getEquipmentById(
             @Parameter(description = "Equipment ID") @PathVariable Long id) {
         Optional<Equipment> equipment = equipmentService.getEquipmentById(id);
@@ -68,7 +68,7 @@ public class EquipmentController {
     @GetMapping("/available/{minQuantity}")
     @Operation(summary = "Get available equipment", description = "Returns available equipment with specified minimum quantity")
     @ApiResponse(responseCode = "200", description = "Available equipment list retrieved successfully")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER') or hasRole('MEMBER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_COACH') or hasRole('ROLE_MEMBER')")
     public ResponseEntity<List<Equipment>> getAvailableEquipment(
             @Parameter(description = "Minimum available quantity") @PathVariable int minQuantity) {
         List<Equipment> equipment = equipmentService.getAvailableEquipment(minQuantity);
@@ -81,7 +81,7 @@ public class EquipmentController {
             @ApiResponse(responseCode = "200", description = "Equipment updated successfully"),
             @ApiResponse(responseCode = "404", description = "Equipment not found")
     })
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Equipment> updateEquipment(
             @Parameter(description = "Equipment ID") @PathVariable Long id,
             @RequestBody Equipment equipmentDetails) {
@@ -99,7 +99,7 @@ public class EquipmentController {
             @ApiResponse(responseCode = "200", description = "Equipment reserved successfully"),
             @ApiResponse(responseCode = "400", description = "Error reserving equipment")
     })
-    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_COACH')")
     public ResponseEntity<Equipment> reserveEquipment(
             @Parameter(description = "Equipment ID") @PathVariable Long id,
             @Parameter(description = "Quantity to reserve") @PathVariable int quantity) {
@@ -117,7 +117,7 @@ public class EquipmentController {
             @ApiResponse(responseCode = "200", description = "Equipment returned successfully"),
             @ApiResponse(responseCode = "400", description = "Error returning equipment")
     })
-    @PreAuthorize("hasRole('ADMIN') or hasRole('TRAINER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_COACH')")
     public ResponseEntity<Equipment> returnEquipment(
             @Parameter(description = "Equipment ID") @PathVariable Long id,
             @Parameter(description = "Quantity to return") @PathVariable int quantity) {
@@ -135,7 +135,7 @@ public class EquipmentController {
             @ApiResponse(responseCode = "200", description = "Equipment deleted successfully"),
             @ApiResponse(responseCode = "404", description = "Equipment not found")
     })
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteEquipment(@Parameter(description = "Equipment ID") @PathVariable Long id) {
         equipmentService.deleteEquipment(id);
         return ResponseEntity.ok().build();
